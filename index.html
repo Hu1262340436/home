@@ -1,90 +1,1339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙年运势签 - 你的2024运势档案</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
----
-layout: default
----
-<div class="search-container">
-  <input type="text" id="search-input" placeholder="search blog posts..." style="width: 90%;
-    height: 35px;
-    background-color: rgba(227,231,236,.2);
-    line-height: 35px;
-    margin-top: 20px;
-    padding:10px 16px;
-    border: 1px solid #c0c0c0;
-    font-size: 16px;
-    border-radius: 17px;
-    outline: none;
-    box-sizing: border-box;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);">
-  <ul id="results-container"></ul>
-</div>
+        :root {
+            --gold: #FFD700;
+            --red: #DC143C;
+            --dark-red: #8B0000;
+            --purple: #4B0082;
+            --blue: #1E90FF;
+            --gray: #808080;
+        }
 
-<!--script src="https://unpkg.com/simple-jekyll-search/dest/simple-jekyll-search.min.js"></script-->
-<script src="{{ site.baseurl }}/js/simple-jekyll-search.min.js"></script>
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-<script>
-	window.simpleJekyllSearch = new SimpleJekyllSearch({
-	searchInput: document.getElementById('search-input'),
-	resultsContainer: document.getElementById('results-container'),
-	json: '{{ site.baseurl }}/search.json',
-	searchResultTemplate: '<li><a href="{url}?query={query}" title="{desc}">{title}</a></li>',
-	noResultsText: 'No results found',
-	limit: 10,
-	fuzzy: false,
-	exclude: ['Welcome']
-  })
-</script>
- 
-{% if site.posts.size == 0 %}
-  <h2>No post found</h2>
-{% endif %}
+        /* 背景装饰 */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
 
-<div class="posts">
-  {% for post in paginator.posts %}
-  {% unless post.draft %}
-    <article class="post">
-      <h1>
-        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-      </h1>
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-      <div class="meta">
-        <span class="date">
-          {{ post.date | date: "%Y-%m-%d" }}
-        </span>
+        /* 头部 */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease;
+        }
 
-        <ul class="tag">
-          {% for tag in post.tags %}
-          <li>
-            <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag }}">
-              {{ tag }}
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--gold), #FFA500, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            margin-bottom: 10px;
+        }
 
-      <div class="entry">
-        {{ post.excerpt | truncate: 200 }}
-      </div>
+        .subtitle {
+            color: #aaa;
+            font-size: 0.9em;
+            letter-spacing: 2px;
+        }
 
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-    </article>
-  {% endunless %}
-  {% endfor %}
-</div>
+        /* 用户信息卡片 */
+        .user-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.8s ease 0.2s both;
+        }
 
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <span class="prev">
-      <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}" class="prev">
-        ← 上一页
-      </a>
-    </span>
-  {% endif %}
-  {% if paginator.next_page %}
-    <span class="next">
-      <a href="{{ site.baseurl}}{{ paginator.next_page_path }}" class="next">
-        下一页 →
-      </a>
-    </span>
-  {% endif %}
-</div>
+        .user-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .user-info h3 {
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .user-stats {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 3px;
+        }
+
+        /* 运势等级标签 */
+        .level-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+
+        .level-0 { background: var(--gray); color: white; }
+        .level-1 { background: var(--blue); color: white; }
+        .level-2 { background: var(--purple); color: white; }
+        .level-3 { background: linear-gradient(45deg, var(--gold), #FFA500); color: #000; }
+        .level-4 { 
+            background: linear-gradient(45deg, var(--red), #FF6347); 
+            color: white;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 20px rgba(220, 20, 60, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* 主按钮 */
+        .main-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2em;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, var(--red), var(--dark-red));
+            color: white;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
+            margin-bottom: 20px;
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        .main-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(220, 20, 60, 0.6);
+        }
+
+        .main-btn:disabled {
+            background: #444;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .main-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .main-btn:hover::before {
+            left: 100%;
+        }
+
+        /* 抽签动画容器 */
+        .draw-animation {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .draw-animation.active {
+            display: block;
+            animation: shake 0.5s ease-in-out infinite;
+        }
+
+        .fortune-tube {
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(135deg, #8B4513, #D2691E);
+            margin: 0 auto;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .fortune-tube::before {
+            content: '🎋';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3em;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        /* 结果卡片 */
+        .result-container {
+            display: none;
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .result-container.show {
+            display: block;
+            animation: flipIn 0.8s ease;
+        }
+
+        @keyframes flipIn {
+            from { transform: rotateY(90deg); opacity: 0; }
+            to { transform: rotateY(0); opacity: 1; }
+        }
+
+        .fortune-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 2px solid;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .fortune-card.rarity-0 { border-color: var(--gray); }
+        .fortune-card.rarity-1 { border-color: var(--blue); box-shadow: 0 0 30px rgba(30, 144, 255, 0.3); }
+        .fortune-card.rarity-2 { border-color: var(--purple); box-shadow: 0 0 30px rgba(75, 0, 130, 0.4); }
+        .fortune-card.rarity-3 { 
+            border-color: var(--gold); 
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,165,0,0.05));
+        }
+        .fortune-card.rarity-4 { 
+            border-color: var(--red); 
+            box-shadow: 0 0 50px rgba(220, 20, 60, 0.6);
+            animation: legendaryGlow 2s infinite;
+            background: linear-gradient(135deg, rgba(220,20,60,0.2), rgba(139,0,0,0.1));
+        }
+
+        @keyframes legendaryGlow {
+            0%, 100% { box-shadow: 0 0 50px rgba(220, 20, 60, 0.6); }
+            50% { box-shadow: 0 0 80px rgba(220, 20, 60, 0.9); }
+        }
+
+        .card-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .card-title {
+            font-size: 1.8em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+
+        .card-desc {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9em;
+        }
+
+        .rarity-name {
+            font-weight: 700;
+        }
+
+        .power-value {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* 击败百分比 */
+        .beat-section {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .beat-bar {
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .beat-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--red), var(--gold));
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+
+        .beat-text {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        .beat-percent {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        /* 操作按钮组 */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            padding: 12px;
+            border: 1px solid rgba(255,215,0,0.3);
+            background: rgba(255,215,0,0.1);
+            color: var(--gold);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+        }
+
+        .action-btn:hover {
+            background: rgba(255,215,0,0.2);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.primary {
+            background: var(--gold);
+            color: #000;
+            border-color: var(--gold);
+        }
+
+        /* 图鉴/收集册 */
+        .collection-section {
+            margin-top: 30px;
+            animation: fadeIn 0.8s ease 0.4s both;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .collection-item {
+            aspect-ratio: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .collection-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255,215,0,0.3);
+        }
+
+        .collection-item.locked {
+            opacity: 0.3;
+            filter: grayscale(1);
+        }
+
+        .collection-item.unlocked {
+            border-color: rgba(255,215,0,0.3);
+            background: rgba(255,215,0,0.05);
+        }
+
+        .collection-icon {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .collection-name {
+            font-size: 0.7em;
+            color: #888;
+            text-align: center;
+            padding: 0 5px;
+        }
+
+        .collection-count {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--red);
+            color: white;
+            font-size: 0.7em;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        /* 成就系统 */
+        .achievements {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .achievement-badge {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,215,0,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            position: relative;
+        }
+
+        .achievement-badge.unlocked {
+            background: rgba(255,215,0,0.2);
+            border-color: var(--gold);
+            animation: glow 2s infinite;
+        }
+
+        .achievement-badge::after {
+            content: attr(data-name);
+            position: absolute;
+            bottom: -20px;
+            font-size: 0.6em;
+            color: #888;
+            white-space: nowrap;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(255,215,0,0.5); }
+            50% { box-shadow: 0 0 20px rgba(255,215,0,0.8); }
+        }
+
+        /* 分享模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .share-preview {
+            background: white;
+            color: #333;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .share-card-preview {
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px;
+            background: linear-gradient(135deg, #fff8dc, #fff);
+        }
+
+        /* 提示消息 */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(0,0,0,0.9);
+            color: var(--gold);
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: 1px solid var(--gold);
+            z-index: 2000;
+            transition: transform 0.3s;
+            font-weight: 700;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 每日限制提示 */
+        .daily-limit {
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .daily-limit span {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* 首次引导 */
+        .tutorial {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .tutorial.active {
+            display: flex;
+        }
+
+        .tutorial-content {
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .tutorial-step {
+            display: none;
+        }
+
+        .tutorial-step.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .tutorial-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .tutorial-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+
+        .tutorial-dots {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .dot.active {
+            background: var(--gold);
+        }
+
+        /* 响应式 */
+        @media (max-width: 480px) {
+            .header h1 { font-size: 2em; }
+            .collection-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* 动画定义 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 连续签到 */
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(45deg, #FF6347, #FF4500);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-left: 10px;
+            animation: fire 1s infinite;
+        }
+
+        @keyframes fire {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>🐉 龙年运势签</h1>
+            <div class="subtitle">开启你的2024运势档案</div>
+        </div>
+
+        <!-- 用户卡片 -->
+        <div class="user-card">
+            <div class="user-header">
+                <div class="avatar" id="user-avatar">🐲</div>
+                <div class="user-info">
+                    <h3 id="username">运势师 <span id="user-level" class="level-badge level-0">Lv.1 见习</span></h3>
+                    <div style="font-size: 0.9em; color: #888; margin-top: 5px;">
+                        总运势值: <span id="total-power" style="color: var(--gold); font-weight: 700;">0</span>
+                        <span id="streak-badge" class="streak-badge hidden">🔥 连续3天</span>
+                    </div>
+                </div>
+            </div>
+            <div class="user-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="draw-count">0</span>
+                    <div class="stat-label">累计抽签</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="collection-count">0/12</span>
+                    <div class="stat-label">图鉴收集</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="rare-count">0</span>
+                    <div class="stat-label">稀有签</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抽签按钮 -->
+        <button class="main-btn" id="draw-btn" onclick="startDraw()">
+            <span id="btn-text">🎋 点击抽签 (今日剩余 3/3)</span>
+        </button>
+        <div class="daily-limit">每日可抽3次，<span>次日0点重置</span></div>
+
+        <!-- 抽签动画 -->
+        <div class="draw-animation" id="draw-animation">
+            <div class="fortune-tube"></div>
+            <p style="margin-top: 20px; color: var(--gold);">运势汇聚中...</p>
+        </div>
+
+        <!-- 结果展示 -->
+        <div class="result-container" id="result-container">
+            <div class="fortune-card" id="fortune-card">
+                <span class="card-icon" id="card-icon">🐉</span>
+                <h2 class="card-title" id="card-title">龙腾虎跃</h2>
+                <p class="card-desc" id="card-desc">事业如龙，势不可挡</p>
+                
+                <div class="card-meta">
+                    <span class="rarity-name" id="rarity-name">普通签</span>
+                    <span class="power-value">运势值: <span id="power-value">+10</span></span>
+                </div>
+
+                <div class="beat-section">
+                    <div class="beat-text">你的运势击败了</div>
+                    <div class="beat-percent" id="beat-percent">65%</div>
+                    <div class="beat-bar">
+                        <div class="beat-fill" id="beat-fill" style="width: 65%"></div>
+                    </div>
+                    <div class="beat-text">的用户</div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn" onclick="saveToCollection()">📥 存入档案</button>
+                <button class="action-btn primary" onclick="openShareModal()">📤 分享卡片</button>
+            </div>
+        </div>
+
+        <!-- 成就展示 -->
+        <div class="collection-section" id="achievements-section" style="display: none;">
+            <div class="section-title">🏆 成就徽章</div>
+            <div class="achievements" id="achievements-list">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+
+        <!-- 图鉴收集 -->
+        <div class="collection-section">
+            <div class="section-title">
+                📚 运势图鉴
+                <span style="font-size: 0.7em; color: #888; font-weight: normal;">点击查看详情</span>
+            </div>
+            <div class="collection-grid" id="collection-grid">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+
+        <!-- 历史记录 -->
+        <div class="collection-section" id="history-section" style="display: none;">
+            <div class="section-title">📜 近日运势</div>
+            <div id="history-list" style="max-height: 200px; overflow-y: auto;">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 分享模态框 -->
+    <div class="modal" id="share-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeShareModal()">×</button>
+            <h3 style="color: var(--gold); margin-bottom: 20px; text-align: center;">分享你的运势</h3>
+            
+            <div class="share-preview">
+                <div class="share-card-preview">
+                    <div style="font-size: 3em; margin-bottom: 10px;" id="share-icon">🐉</div>
+                    <div style="font-weight: 700; color: var(--dark-red); font-size: 1.2em;" id="share-title">龙腾虎跃</div>
+                    <div style="color: #666; font-size: 0.9em; margin: 10px 0;" id="share-desc">事业如龙，势不可挡</div>
+                    <div style="border-top: 1px dashed #ccc; padding-top: 10px; margin-top: 10px; font-size: 0.8em; color: #999;">
+                        扫码抽取你的龙年运势签 →
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+                <button class="action-btn" onclick="copyLink()">🔗 复制链接</button>
+                <button class="action-btn primary" onclick="saveImage()">💾 保存图片</button>
+            </div>
+            
+            <div style="margin-top: 15px; text-align: center; font-size: 0.8em; color: #666;">
+                每邀请1位好友，获得1次额外抽签机会
+            </div>
+        </div>
+    </div>
+
+    <!-- 提示消息 -->
+    <div class="toast" id="toast"></div>
+
+    <!-- 首次引导 -->
+    <div class="tutorial" id="tutorial">
+        <div class="tutorial-content">
+            <div class="tutorial-step active" data-step="1">
+                <div class="tutorial-icon">🎋</div>
+                <div class="tutorial-text">
+                    欢迎来到龙年运势签！<br>
+                    每日可抽3支运势签<br>
+                    收集稀有签文，解锁专属成就
+                </div>
+            </div>
+            <div class="tutorial-step" data-step="2">
+                <div class="tutorial-icon">📚</div>
+                <div class="tutorial-text">
+                    收集完整图鉴可获得<br>
+                    <span style="color: var(--gold);">神秘大奖</span><br>
+                    分享好友助力，增加抽签次数
+                </div>
+            </div>
+            <div class="tutorial-step" data-step="3">
+                <div class="tutorial-icon">🏆</div>
+                <div class="tutorial-text">
+                    连续签到有惊喜<br>
+                    稀有签文概率UP！<br>
+                    开始你的运势之旅吧！
+                </div>
+            </div>
+            
+            <div class="tutorial-dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            
+            <button class="main-btn" onclick="nextTutorial()" id="tutorial-btn" style="margin-top: 20px;">
+                下一步
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        // 数据配置 - 扩展至12个签文，增加收集深度
+        const fortunes = [
+            { id: 1, title: "龙腾虎跃", desc: "事业如龙，势不可挡，宜主动出击", rarity: 0, icon: "🐉", power: 10 },
+            { id: 2, title: "平稳安康", desc: "平平淡淡才是真，注意身体", rarity: 0, icon: "🍵", power: 10 },
+            { id: 3, title: "小有所成", desc: "努力终有回报，继续加油", rarity: 0, icon: "🌱", power: 10 },
+            { id: 4, title: "财源滚滚", desc: "财运亨通，金银满屋，宜投资", rarity: 1, icon: "💰", power: 25 },
+            { id: 5, title: "桃花朵朵", desc: "爱情运势极佳，单身者留意", rarity: 1, icon: "🌸", power: 25 },
+            { id: 6, title: "贵人相助", desc: "得遇贵人，事半功倍", rarity: 1, icon: "🤝", power: 25 },
+            { id: 7, title: "步步高升", desc: "升职加薪在望，把握机遇", rarity: 2, icon: "📈", power: 50 },
+            { id: 8, title: "万事如意", desc: "心想事成，好运连连", rarity: 2, icon: "✨", power: 50 },
+            { id: 9, title: "紫气东来", desc: "祥瑞降临，诸事顺遂", rarity: 2, icon: "☁️", power: 50 },
+            { id: 10, title: "天降横财", desc: "意外之财，喜从天降", rarity: 3, icon: "💎", power: 100 },
+            { id: 11, title: "龙凤呈祥", desc: "百年难遇之大吉，时来运转", rarity: 3, icon: "🐲", power: 100 },
+            { id: 12, title: "真龙天子", desc: "至尊隐藏款！全年无敌好运", rarity: 4, icon: "👑", power: 999 }
+        ];
+
+        // 权重配置
+        const rarityWeights = [50, 30, 15, 4, 1];
+        const rarityNames = ['普通', '稀有', '史诗', '传说', '神话'];
+        const rarityClasses = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4'];
+
+        // 成就配置
+        const achievements = [
+            { id: 'first_draw', name: '初识运势', icon: '🎯', desc: '首次抽签', condition: (u) => u.totalDraws >= 1 },
+            { id: 'collector_3', name: '初 collector', icon: '📚', desc: '收集3种签', condition: (u) => u.unlockedSet.size >= 3 },
+            { id: 'collector_all', name: '图鉴大师', icon: '👑', desc: '收集全部签', condition: (u) => u.unlockedSet.size >= 12 },
+            { id: 'rare_hunter', name: '稀有猎人', icon: '💎', desc: '获得传说签', condition: (u) => u.maxRarity >= 3 },
+            { id: 'legendary', name: '天命之子', icon: '🔥', desc: '获得神话签', condition: (u) => u.maxRarity >= 4 },
+            { id: 'streak_3', name: '持之以恒', icon: '⚡', desc: '连续3天抽签', condition: (u) => u.streak >= 3 }
+        ];
+
+        // 用户数据
+        let userData = {
+            totalDraws: 0,
+            todayDraws: 0,
+            lastDrawDate: null,
+            unlocked: {}, // {id: count}
+            unlockedSet: new Set(),
+            maxRarity: 0,
+            totalPower: 0,
+            streak: 0,
+            lastLoginDate: null,
+            achievements: new Set()
+        };
+
+        let currentFortune = null;
+        let tutorialStep = 1;
+
+        // 初始化
+        window.onload = function() {
+            loadUserData();
+            checkDailyReset();
+            updateUI();
+            initCollectionGrid();
+            
+            // 首次访问显示引导
+            if (!localStorage.getItem('tutorialShown')) {
+                document.getElementById('tutorial').classList.add('active');
+            }
+        };
+
+        function loadUserData() {
+            const saved = localStorage.getItem('fortuneUserData');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                userData = {
+                    ...parsed,
+                    unlockedSet: new Set(parsed.unlockedSet || []),
+                    achievements: new Set(parsed.achievements || [])
+                };
+            }
+        }
+
+        function saveUserData() {
+            const toSave = {
+                ...userData,
+                unlockedSet: Array.from(userData.unlockedSet),
+                achievements: Array.from(userData.achievements)
+            };
+            localStorage.setItem('fortuneUserData', JSON.stringify(toSave));
+        }
+
+        function checkDailyReset() {
+            const today = new Date().toDateString();
+            
+            // 检查连续签到
+            if (userData.lastLoginDate) {
+                const lastDate = new Date(userData.lastLoginDate);
+                const diffDays = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24));
+                
+                if (diffDays === 1) {
+                    userData.streak++;
+                    showToast(`连续签到 ${userData.streak} 天！稀有概率提升！`);
+                } else if (diffDays > 1) {
+                    userData.streak = 0;
+                }
+            }
+            
+            userData.lastLoginDate = new Date().toISOString();
+            
+            // 重置每日次数
+            if (userData.lastDrawDate !== today) {
+                userData.todayDraws = 0;
+                userData.lastDrawDate = today;
+            }
+            
+            saveUserData();
+        }
+
+        function getRandomFortune() {
+            // 连续签到增加稀有概率
+            let weights = [...rarityWeights];
+            if (userData.streak >= 3) {
+                weights = [40, 35, 20, 4, 1]; // 提升稀有概率
+            }
+            
+            let total = weights.reduce((a, b) => a + b, 0);
+            let rand = Math.random() * total;
+            let selectedRarity = 0;
+            
+            for (let i = 0; i < weights.length; i++) {
+                if (rand < weights[i]) {
+                    selectedRarity = i;
+                    break;
+                }
+                rand -= weights[i];
+            }
+            
+            const candidates = fortunes.filter(f => f.rarity === selectedRarity);
+            return candidates[Math.floor(Math.random() * candidates.length)];
+        }
+
+        function startDraw() {
+            if (userData.todayDraws >= 3) {
+                showToast('今日次数已用完，分享给好友可获得额外机会！');
+                return;
+            }
+
+            // 隐藏按钮，显示动画
+            document.getElementById('draw-btn').style.display = 'none';
+            document.getElementById('result-container').classList.remove('show');
+            document.getElementById('draw-animation').classList.add('active');
+
+            // 模拟抽签过程
+            setTimeout(() => {
+                currentFortune = getRandomFortune();
+                showResult(currentFortune);
+            }, 1500);
+        }
+
+        function showResult(fortune) {
+            document.getElementById('draw-animation').classList.remove('active');
+            document.getElementById('result-container').classList.add('show');
+            document.getElementById('draw-btn').style.display = 'block';
+
+            // 更新数据
+            userData.todayDraws++;
+            userData.totalDraws++;
+            userData.totalPower += fortune.power;
+            
+            if (!userData.unlocked[fortune.id]) {
+                userData.unlocked[fortune.id] = 0;
+            }
+            userData.unlocked[fortune.id]++;
+            userData.unlockedSet.add(fortune.id);
+            
+            if (fortune.rarity > userData.maxRarity) {
+                userData.maxRarity = fortune.rarity;
+            }
+
+            // 更新UI
+            const card = document.getElementById('fortune-card');
+            card.className = `fortune-card rarity-${fortune.rarity}`;
+            
+            document.getElementById('card-icon').textContent = fortune.icon;
+            document.getElementById('card-title').textContent = fortune.title;
+            document.getElementById('card-desc').textContent = fortune.desc;
+            document.getElementById('rarity-name').textContent = rarityNames[fortune.rarity] + '签';
+            document.getElementById('power-value').textContent = '+' + fortune.power;
+
+            // 计算击败百分比
+            let beaten = 0;
+            for (let i = 0; i < fortune.rarity; i++) beaten += rarityWeights[i];
+            const percent = Math.floor((beaten / rarityWeights.reduce((a,b)=>a+b,0)) * 100);
+            document.getElementById('beat-percent').textContent = percent + '%';
+            document.getElementById('beat-fill').style.width = percent + '%';
+
+            // 更新按钮文字
+            const remaining = 3 - userData.todayDraws;
+            document.getElementById('btn-text').textContent = remaining > 0 ? 
+                `🎋 再次抽签 (今日剩余 ${remaining}/3)` : 
+                `🎋 今日次数已用完`;
+
+            if (remaining === 0) {
+                document.getElementById('draw-btn').disabled = true;
+            }
+
+            // 检查成就
+            checkAchievements();
+            
+            // 特殊效果
+            if (fortune.rarity >= 3) {
+                showToast(`🎉 恭喜获得${rarityNames[fortune.rarity]}签！`);
+                confettiEffect();
+            }
+
+            saveUserData();
+            updateUI();
+            updateCollectionGrid();
+        }
+
+        function checkAchievements() {
+            let newAchievement = false;
+            achievements.forEach(ach => {
+                if (!userData.achievements.has(ach.id) && ach.condition(userData)) {
+                    userData.achievements.add(ach.id);
+                    newAchievement = true;
+                    setTimeout(() => {
+                        showToast(`🏆 解锁成就：${ach.name}！`);
+                    }, 1000);
+                }
+            });
+            
+            if (newAchievement) {
+                saveUserData();
+                renderAchievements();
+            }
+        }
+
+        function updateUI() {
+            document.getElementById('draw-count').textContent = userData.totalDraws;
+            document.getElementById('collection-count').textContent = `${userData.unlockedSet.size}/12`;
+            document.getElementById('rare-count').textContent = Array.from(userData.unlockedSet).filter(id => {
+                const f = fortunes.find(x => x.id === id);
+                return f && f.rarity >= 2;
+            }).length;
+            document.getElementById('total-power').textContent = userData.totalPower;
+
+            // 更新等级
+            let level = 0;
+            let levelName = '见习';
+            if (userData.totalPower > 100) { level = 1; levelName = '入门'; }
+            if (userData.totalPower > 300) { level = 2; levelName = '精通'; }
+            if (userData.totalPower > 600) { level = 3; levelName = '大师'; }
+            if (userData.totalPower > 1000) { level = 4; levelName = '宗师'; }
+            
+            const levelBadge = document.getElementById('user-level');
+            levelBadge.className = `level-badge ${rarityClasses[level]}`;
+            levelBadge.textContent = `Lv.${level + 1} ${levelName}`;
+
+            // 连续签到
+            if (userData.streak >= 3) {
+                document.getElementById('streak-badge').classList.remove('hidden');
+                document.getElementById('streak-badge').textContent = `🔥 连续${userData.streak}天`;
+            }
+
+            // 显示成就区域
+            if (userData.achievements.size > 0) {
+                document.getElementById('achievements-section').style.display = 'block';
+                renderAchievements();
+            }
+
+            // 显示历史
+            if (userData.totalDraws > 0) {
+                document.getElementById('history-section').style.display = 'block';
+            }
+        }
+
+        function initCollectionGrid() {
+            const grid = document.getElementById('collection-grid');
+            grid.innerHTML = '';
+            
+            fortunes.forEach(f => {
+                const item = document.createElement('div');
+                item.className = 'collection-item locked';
+                item.id = `collection-${f.id}`;
+                item.onclick = () => showFortuneDetail(f);
+                
+                item.innerHTML = `
+                    <span class="collection-icon">${f.icon}</span>
+                    <span class="collection-name">${f.title}</span>
+                `;
+                
+                grid.appendChild(item);
+            });
+            
+            updateCollectionGrid();
+        }
+
+        function updateCollectionGrid() {
+            fortunes.forEach(f => {
+                const item = document.getElementById(`collection-${f.id}`);
+                const count = userData.unlocked[f.id] || 0;
+                
+                if (count > 0) {
+                    item.classList.remove('locked');
+                    item.classList.add('unlocked');
+                    
+                    // 显示数量标记
+                    if (count > 1) {
+                        const badge = document.createElement('span');
+                        badge.className = 'collection-count';
+                        badge.textContent = count;
+                        if (!item.querySelector('.collection-count')) {
+                            item.appendChild(badge);
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderAchievements() {
+            const container = document.getElementById('achievements-list');
+            container.innerHTML = '';
+            
+            achievements.forEach(ach => {
+                const badge = document.createElement('div');
+                badge.className = `achievement-badge ${userData.achievements.has(ach.id) ? 'unlocked' : ''}`;
+                badge.textContent = ach.icon;
+                badge.setAttribute('data-name', ach.name);
+                badge.title = ach.desc;
+                container.appendChild(badge);
+            });
+        }
+
+        function showFortuneDetail(fortune) {
+            if (!userData.unlocked[fortune.id]) {
+                showToast('还未解锁此签文，继续抽签吧！');
+                return;
+            }
+            // 可以扩展为弹窗显示详细信息
+            showToast(`${fortune.title}：${fortune.desc}`);
+        }
+
+        function saveToCollection() {
+            showToast('已存入个人运势档案！');
+            // 触发保存动画或效果
+        }
+
+        function openShareModal() {
+            if (!currentFortune) return;
+            
+            document.getElementById('share-icon').textContent = currentFortune.icon;
+            document.getElementById('share-title').textContent = currentFortune.title;
+            document.getElementById('share-desc').textContent = currentFortune.desc;
+            document.getElementById('share-modal').classList.add('active');
+        }
+
+        function closeShareModal() {
+            document.getElementById('share-modal').classList.remove('active');
+        }
+
+        function copyLink() {
+            const url = window.location.href + '?ref=' + generateUserId();
+            navigator.clipboard.writeText(url).then(() => {
+                showToast('链接已复制！好友点击你获得+1次机会');
+                // 增加分享次数逻辑
+                userData.todayDraws = Math.max(0, userData.todayDraws - 1);
+                saveUserData();
+                updateUI();
+            });
+        }
+
+        function saveImage() {
+            const card = document.getElementById('fortune-card');
+            html2canvas(card).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `龙年运势签_${currentFortune.title}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+                showToast('图片已保存！');
+            });
+        }
+
+        function generateUserId() {
+            let id = localStorage.getItem('fortuneUserId');
+            if (!id) {
+                id = 'user_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('fortuneUserId', id);
+            }
+            return id;
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function nextTutorial() {
+            if (tutorialStep < 3) {
+                document.querySelector(`.tutorial-step[data-step="${tutorialStep}"]`).classList.remove('active');
+                tutorialStep++;
+                document.querySelector(`.tutorial-step[data-step="${tutorialStep}"]`).classList.add('active');
+                
+                document.querySelectorAll('.dot').forEach((d, i) => {
+                    d.classList.toggle('active', i === tutorialStep - 1);
+                });
+                
+                if (tutorialStep === 3) {
+                    document.getElementById('tutorial-btn').textContent = '开始抽签';
+                }
+            } else {
+                document.getElementById('tutorial').classList.remove('active');
+                localStorage.setItem('tutorialShown', 'true');
+            }
+        }
+
+        function confettiEffect() {
+            // 简单的彩纸效果
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.background = ['#FFD700', '#FF6347', '#1E90FF', '#800080'][Math.floor(Math.random() * 4)];
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.pointerEvents = 'none';
+                    document.body.appendChild(confetti);
+                    
+                    const duration = 2000 + Math.random() * 2000;
+                    confetti.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    ], {
+                        duration: duration,
+                        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                    }).onfinish = () => confetti.remove();
+                }, i * 50);
+            }
+        }
+
+        // 检查URL参数（好友邀请）
+        const urlParams = new URLSearchParams(window.location.search);
+        const ref = urlParams.get('ref');
+        if (ref) {
+            showToast('🎁 好友邀请奖励：+1次抽签机会！');
+            // 这里可以实现给双方增加次数的逻辑
+        }
+    </script>
+</body>
+</html>
