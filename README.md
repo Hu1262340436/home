@@ -1,3 +1,3 @@
-# Home.github.io
+# home.github.io
 
 My Personal Blog via GitHub
