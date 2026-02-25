@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>龙年运势签 - 你的2024运势档案</title>
+    <title>2026马年运势签 - 马上好运</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Ma+Shan+Zheng&display=swap');
         
         * {
             margin: 0;
@@ -14,33 +14,104 @@
         }
 
         :root {
-            --gold: #FFD700;
-            --red: #DC143C;
-            --dark-red: #8B0000;
-            --purple: #4B0082;
-            --blue: #1E90FF;
-            --gray: #808080;
+            --cny-red: #E60012;
+            --cny-gold: #FFD700;
+            --cny-orange: #FF6B35;
+            --cny-pink: #FF8E8E;
+            --cny-cream: #FFF8E7;
+            --cny-dark: #8B0000;
         }
 
         body {
-            font-family: 'Noto Serif SC', serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'Noto Serif SC', 'Ma Shan Zheng', serif;
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFD6D6 50%, #FFE8CC 100%);
             min-height: 100vh;
-            color: #fff;
+            color: #333;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* 背景装饰 */
-        .bg-pattern {
+        /* 动态背景装饰 */
+        .bg-decoration {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 0;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 100px;
+            opacity: 0.8;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .cloud:nth-child(1) { width: 100px; height: 40px; top: 10%; left: -100px; animation-duration: 25s; }
+        .cloud:nth-child(2) { width: 80px; height: 35px; top: 20%; left: -80px; animation-duration: 30s; animation-delay: 5s; }
+        .cloud:nth-child(3) { width: 120px; height: 45px; top: 60%; left: -120px; animation-duration: 35s; animation-delay: 10s; }
+
+        @keyframes float {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 200px)); }
+        }
+
+        .lantern {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(180deg, var(--cny-red) 0%, var(--cny-dark) 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 20px rgba(230, 0, 18, 0.3);
+            animation: swing 3s infinite ease-in-out;
+        }
+
+        .lantern::before {
+            content: '福';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--cny-gold);
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .lantern::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: var(--cny-gold);
+        }
+
+        .lantern:nth-child(4) { top: 5%; left: 10%; animation-delay: 0s; }
+        .lantern:nth-child(5) { top: 8%; right: 15%; animation-delay: 1s; transform: scale(0.8); }
+        .lantern:nth-child(6) { top: 3%; left: 50%; animation-delay: 2s; transform: scale(1.2); }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: explode 2s infinite;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(0); opacity: 1; box-shadow: 0 0 0 0 var(--cny-gold); }
+            100% { transform: scale(20); opacity: 0; box-shadow: 0 0 20px 10px transparent; }
         }
 
         .container {
@@ -51,39 +122,84 @@
             padding: 20px;
         }
 
-        /* 头部 */
+        /* 头部 - 国潮风格 */
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            position: relative;
             animation: fadeInDown 0.8s ease;
         }
 
+        .year-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--cny-red), var(--cny-dark));
+            color: var(--cny-gold);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(230, 0, 18, 0.3);
+            border: 2px solid var(--cny-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .year-badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
         .header h1 {
-            font-size: 2.5em;
-            font-weight: 900;
-            background: linear-gradient(45deg, var(--gold), #FFA500, var(--gold));
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 3em;
+            background: linear-gradient(45deg, var(--cny-red), var(--cny-orange), var(--cny-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
         }
 
         .subtitle {
-            color: #aaa;
-            font-size: 0.9em;
-            letter-spacing: 2px;
+            color: var(--cny-dark);
+            font-size: 1em;
+            letter-spacing: 3px;
+            font-weight: 600;
         }
 
-        /* 用户信息卡片 */
+        /* 用户卡片 - 喜庆风格 */
         .user-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            background: linear-gradient(135deg, #FFF 0%, var(--cny-cream) 100%);
+            border: 3px solid var(--cny-gold);
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 20px;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(230, 0, 18, 0.15), inset 0 0 20px rgba(255, 215, 0, 0.1);
+            position: relative;
+            overflow: hidden;
             animation: fadeIn 0.8s ease 0.2s both;
+        }
+
+        .user-card::before {
+            content: '🧧';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 3em;
+            opacity: 0.2;
+            transform: rotate(15deg);
         }
 
         .user-header {
@@ -94,100 +210,116 @@
         }
 
         .avatar {
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold), #FFA500);
+            background: linear-gradient(135deg, var(--cny-red), var(--cny-orange));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            font-size: 2.2em;
+            box-shadow: 0 4px 15px rgba(230, 0, 18, 0.3);
+            border: 3px solid var(--cny-gold);
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
         }
 
         .user-info h3 {
-            color: var(--gold);
+            color: var(--cny-dark);
             margin-bottom: 5px;
+            font-size: 1.2em;
         }
 
         .user-stats {
             display: flex;
             justify-content: space-around;
             padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px dashed rgba(230, 0, 18, 0.2);
         }
 
         .stat-item {
             text-align: center;
+            position: relative;
         }
 
         .stat-value {
-            font-size: 1.5em;
-            font-weight: 700;
-            color: var(--gold);
+            font-size: 1.6em;
+            font-weight: 900;
+            color: var(--cny-red);
             display: block;
+            font-family: 'Ma Shan Zheng', cursive;
         }
 
         .stat-label {
-            font-size: 0.8em;
-            color: #888;
+            font-size: 0.75em;
+            color: #666;
             margin-top: 3px;
+            font-weight: 600;
         }
 
-        /* 运势等级标签 */
+        /* 等级标签 */
         .level-badge {
             display: inline-block;
             padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
+            border-radius: 15px;
+            font-size: 0.75em;
             font-weight: 700;
-            margin-left: 10px;
+            margin-left: 8px;
+            border: 2px solid;
         }
 
-        .level-0 { background: var(--gray); color: white; }
-        .level-1 { background: var(--blue); color: white; }
-        .level-2 { background: var(--purple); color: white; }
-        .level-3 { background: linear-gradient(45deg, var(--gold), #FFA500); color: #000; }
+        .level-0 { background: #F0F0F0; color: #666; border-color: #CCC; }
+        .level-1 { background: #E3F2FD; color: #1976D2; border-color: #90CAF9; }
+        .level-2 { background: #F3E5F5; color: #7B1FA2; border-color: #CE93D8; }
+        .level-3 { background: linear-gradient(45deg, #FFF8E1, #FFECB3); color: #F57F17; border-color: #FFD54F; }
         .level-4 { 
-            background: linear-gradient(45deg, var(--red), #FF6347); 
-            color: white;
-            animation: pulse 2s infinite;
-            box-shadow: 0 0 20px rgba(220, 20, 60, 0.6);
+            background: linear-gradient(45deg, #FFEBEE, #FFCDD2); 
+            color: var(--cny-red); 
+            border-color: var(--cny-gold);
+            animation: glow 2s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
         }
 
-        /* 主按钮 */
+        /* 主按钮 - 国潮按钮 */
         .main-btn {
             width: 100%;
-            padding: 18px;
-            font-size: 1.2em;
+            padding: 20px;
+            font-size: 1.3em;
             font-weight: 700;
             border: none;
             border-radius: 50px;
-            background: linear-gradient(45deg, var(--red), var(--dark-red));
-            color: white;
+            background: linear-gradient(135deg, var(--cny-red) 0%, var(--cny-dark) 100%);
+            color: var(--cny-gold);
             cursor: pointer;
             position: relative;
             overflow: hidden;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
-            margin-bottom: 20px;
-            font-family: 'Noto Serif SC', serif;
+            box-shadow: 0 6px 20px rgba(230, 0, 18, 0.4);
+            margin-bottom: 15px;
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 2px;
+            border: 3px solid var(--cny-gold);
         }
 
         .main-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(220, 20, 60, 0.6);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(230, 0, 18, 0.5);
         }
 
         .main-btn:disabled {
-            background: #444;
+            background: #CCC;
+            color: #999;
             cursor: not-allowed;
             box-shadow: none;
+            border-color: #BBB;
         }
 
         .main-btn::before {
@@ -197,7 +329,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
             transition: 0.5s;
         }
 
@@ -205,44 +337,45 @@
             left: 100%;
         }
 
-        /* 抽签动画容器 */
+        /* 抽签动画 - 马年主题 */
         .draw-animation {
             display: none;
             text-align: center;
             padding: 40px 0;
+            position: relative;
         }
 
         .draw-animation.active {
             display: block;
-            animation: shake 0.5s ease-in-out infinite;
         }
 
-        .fortune-tube {
-            width: 80px;
-            height: 120px;
-            background: linear-gradient(135deg, #8B4513, #D2691E);
-            margin: 0 auto;
-            border-radius: 10px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .horse-icon {
+            font-size: 5em;
+            animation: gallop 0.6s ease-in-out infinite;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         }
 
-        .fortune-tube::before {
-            content: '🎋';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3em;
+        @keyframes gallop {
+            0%, 100% { transform: translateY(0) scaleX(1); }
+            25% { transform: translateY(-20px) scaleX(0.95); }
+            50% { transform: translateY(0) scaleX(1); }
+            75% { transform: translateY(-10px) scaleX(1.05); }
         }
 
-        @keyframes shake {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-5deg); }
-            75% { transform: rotate(5deg); }
+        .draw-text {
+            margin-top: 20px;
+            color: var(--cny-red);
+            font-size: 1.2em;
+            font-weight: 700;
+            animation: blink 1s infinite;
         }
 
-        /* 结果卡片 */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* 结果卡片 - 红包风格 */
         .result-container {
             display: none;
             perspective: 1000px;
@@ -260,171 +393,268 @@
         }
 
         .fortune-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            border: 2px solid;
+            background: linear-gradient(135deg, #FFF 0%, var(--cny-cream) 100%);
+            border: 4px solid;
             border-radius: 20px;
             padding: 30px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
 
-        .fortune-card.rarity-0 { border-color: var(--gray); }
-        .fortune-card.rarity-1 { border-color: var(--blue); box-shadow: 0 0 30px rgba(30, 144, 255, 0.3); }
-        .fortune-card.rarity-2 { border-color: var(--purple); box-shadow: 0 0 30px rgba(75, 0, 130, 0.4); }
+        .fortune-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--cny-red),
+                var(--cny-red) 10px,
+                var(--cny-gold) 10px,
+                var(--cny-gold) 20px
+            );
+        }
+
+        .fortune-card.rarity-0 { border-color: #CCC; }
+        .fortune-card.rarity-1 { border-color: var(--cny-orange); box-shadow: 0 0 30px rgba(255, 107, 53, 0.3); }
+        .fortune-card.rarity-2 { border-color: #9C27B0; box-shadow: 0 0 30px rgba(156, 39, 176, 0.3); }
         .fortune-card.rarity-3 { 
-            border-color: var(--gold); 
+            border-color: var(--cny-gold); 
             box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
-            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,165,0,0.05));
+            background: linear-gradient(135deg, #FFF8E1, #FFF);
         }
         .fortune-card.rarity-4 { 
-            border-color: var(--red); 
-            box-shadow: 0 0 50px rgba(220, 20, 60, 0.6);
+            border-color: var(--cny-red); 
+            box-shadow: 0 0 50px rgba(230, 0, 18, 0.6);
             animation: legendaryGlow 2s infinite;
-            background: linear-gradient(135deg, rgba(220,20,60,0.2), rgba(139,0,0,0.1));
+            background: linear-gradient(135deg, #FFEBEE, #FFF);
         }
 
         @keyframes legendaryGlow {
-            0%, 100% { box-shadow: 0 0 50px rgba(220, 20, 60, 0.6); }
-            50% { box-shadow: 0 0 80px rgba(220, 20, 60, 0.9); }
+            0%, 100% { box-shadow: 0 0 50px rgba(230, 0, 18, 0.6); }
+            50% { box-shadow: 0 0 80px rgba(230, 0, 18, 0.9); }
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--cny-red);
+            color: var(--cny-gold);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+            transform: rotate(15deg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .card-icon {
-            font-size: 4em;
-            margin-bottom: 15px;
+            font-size: 4.5em;
+            margin: 10px 0 20px;
             display: block;
-            animation: float 3s ease-in-out infinite;
+            animation: bounce 2s infinite;
         }
 
-        @keyframes float {
+        @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
 
         .card-title {
-            font-size: 1.8em;
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2.2em;
             font-weight: 900;
-            margin-bottom: 10px;
-            color: var(--gold);
+            margin-bottom: 15px;
+            color: var(--cny-dark);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .card-desc {
             font-size: 1.1em;
-            color: #ccc;
-            margin-bottom: 20px;
+            color: #555;
+            margin-bottom: 25px;
             line-height: 1.6;
+            padding: 0 10px;
+            border-left: 3px solid var(--cny-gold);
+            border-right: 3px solid var(--cny-gold);
         }
 
         .card-meta {
             display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .meta-tag {
+            background: rgba(230, 0, 18, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: var(--cny-dark);
+            font-weight: 600;
+            border: 1px solid rgba(230, 0, 18, 0.2);
+        }
+
+        /* 击败百分比 - 进度条样式 */
+        .beat-section {
+            background: linear-gradient(135deg, rgba(230,0,18,0.05), rgba(255,215,0,0.05));
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed rgba(230,0,18,0.2);
+        }
+
+        .beat-header {
+            display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 10px;
+        }
+
+        .beat-label {
             font-size: 0.9em;
+            color: #666;
+            font-weight: 600;
         }
 
-        .rarity-name {
-            font-weight: 700;
-        }
-
-        .power-value {
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        /* 击败百分比 */
-        .beat-section {
-            background: rgba(0,0,0,0.3);
-            border-radius: 15px;
-            padding: 15px;
-            margin-top: 20px;
+        .beat-percent {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2em;
+            color: var(--cny-red);
+            font-weight: 900;
         }
 
         .beat-bar {
-            height: 10px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 5px;
+            height: 12px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
             overflow: hidden;
-            margin: 10px 0;
+            position: relative;
         }
 
         .beat-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--red), var(--gold));
-            border-radius: 5px;
-            transition: width 1s ease;
+            background: linear-gradient(90deg, var(--cny-red), var(--cny-orange), var(--cny-gold));
+            border-radius: 10px;
+            transition: width 1.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .beat-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .beat-text {
-            font-size: 0.9em;
-            color: #aaa;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.85em;
+            color: #888;
         }
 
-        .beat-percent {
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 1.2em;
-        }
-
-        /* 操作按钮组 */
+        /* 操作按钮 */
         .action-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 12px;
             margin-top: 20px;
         }
 
         .action-btn {
-            padding: 12px;
-            border: 1px solid rgba(255,215,0,0.3);
-            background: rgba(255,215,0,0.1);
-            color: var(--gold);
-            border-radius: 10px;
+            padding: 14px;
+            border: 2px solid var(--cny-red);
+            background: #FFF;
+            color: var(--cny-red);
+            border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s;
             font-family: 'Noto Serif SC', serif;
             font-weight: 700;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
         }
 
         .action-btn:hover {
-            background: rgba(255,215,0,0.2);
+            background: var(--cny-red);
+            color: var(--cny-gold);
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(230, 0, 18, 0.3);
         }
 
         .action-btn.primary {
-            background: var(--gold);
-            color: #000;
-            border-color: var(--gold);
+            background: linear-gradient(135deg, var(--cny-red), var(--cny-dark));
+            color: var(--cny-gold);
+            border-color: var(--cny-gold);
         }
 
-        /* 图鉴/收集册 */
+        .action-btn.primary:hover {
+            background: linear-gradient(135deg, var(--cny-dark), var(--cny-red));
+        }
+
+        /* 每日限制提示 */
+        .daily-limit {
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .daily-limit span {
+            color: var(--cny-red);
+            font-weight: 700;
+        }
+
+        /* 图鉴收集 - 红包网格 */
         .collection-section {
             margin-top: 30px;
             animation: fadeIn 0.8s ease 0.4s both;
         }
 
         .section-title {
-            font-size: 1.3em;
-            color: var(--gold);
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.5em;
+            color: var(--cny-dark);
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
+            padding-left: 10px;
+            border-left: 4px solid var(--cny-red);
         }
 
         .collection-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            gap: 12px;
         }
 
         .collection-item {
             aspect-ratio: 1;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
+            background: linear-gradient(135deg, #FFF, var(--cny-cream));
+            border: 2px solid rgba(230, 0, 18, 0.2);
+            border-radius: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -433,88 +663,112 @@
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .collection-item:hover {
-            transform: translateY(-3px);
-            border-color: rgba(255,215,0,0.3);
+            transform: translateY(-5px) scale(1.05);
+            border-color: var(--cny-gold);
+            box-shadow: 0 8px 25px rgba(230, 0, 18, 0.2);
         }
 
         .collection-item.locked {
-            opacity: 0.3;
+            opacity: 0.4;
             filter: grayscale(1);
+            background: #F5F5F5;
         }
 
         .collection-item.unlocked {
-            border-color: rgba(255,215,0,0.3);
-            background: rgba(255,215,0,0.05);
+            border-color: var(--cny-gold);
+            background: linear-gradient(135deg, #FFF8E1, #FFF);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .collection-item.legendary {
+            border-color: var(--cny-red);
+            animation: borderGlow 2s infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(230, 0, 18, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(230, 0, 18, 0.6); }
         }
 
         .collection-icon {
-            font-size: 2em;
+            font-size: 2.2em;
             margin-bottom: 5px;
         }
 
         .collection-name {
-            font-size: 0.7em;
-            color: #888;
+            font-size: 0.75em;
+            color: #666;
             text-align: center;
             padding: 0 5px;
+            font-weight: 600;
         }
 
         .collection-count {
             position: absolute;
             top: 5px;
             right: 5px;
-            background: var(--red);
+            background: var(--cny-red);
             color: white;
             font-size: 0.7em;
-            padding: 2px 6px;
+            padding: 2px 8px;
             border-radius: 10px;
             font-weight: 700;
+            min-width: 20px;
         }
 
         /* 成就系统 */
         .achievements {
             margin-top: 20px;
             display: flex;
-            gap: 10px;
+            gap: 15px;
             overflow-x: auto;
             padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        .achievements::-webkit-scrollbar {
+            display: none;
         }
 
         .achievement-badge {
             flex-shrink: 0;
-            width: 60px;
-            height: 60px;
-            background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,215,0,0.2);
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #F5F5F5, #E0E0E0);
+            border: 3px solid #CCC;
             border-radius: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 1.5em;
+            font-size: 1.8em;
             position: relative;
+            transition: all 0.3s;
         }
 
         .achievement-badge.unlocked {
-            background: rgba(255,215,0,0.2);
-            border-color: var(--gold);
-            animation: glow 2s infinite;
+            background: linear-gradient(135deg, #FFF8E1, var(--cny-gold));
+            border-color: var(--cny-red);
+            animation: badgeGlow 2s infinite;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
         }
 
-        .achievement-badge::after {
-            content: attr(data-name);
+        @keyframes badgeGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .achievement-name {
             position: absolute;
             bottom: -20px;
-            font-size: 0.6em;
-            color: #888;
+            font-size: 0.65em;
+            color: #666;
             white-space: nowrap;
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 5px rgba(255,215,0,0.5); }
-            50% { box-shadow: 0 0 20px rgba(255,215,0,0.8); }
+            font-weight: 600;
         }
 
         /* 分享模态框 */
@@ -530,6 +784,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            backdrop-filter: blur(5px);
         }
 
         .modal.active {
@@ -537,14 +792,15 @@
         }
 
         .modal-content {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border: 1px solid rgba(255,215,0,0.3);
+            background: linear-gradient(135deg, #FFF, var(--cny-cream));
+            border: 3px solid var(--cny-gold);
             border-radius: 20px;
             padding: 30px;
             max-width: 400px;
             width: 100%;
             position: relative;
             animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
         @keyframes slideUp {
@@ -558,25 +814,81 @@
             right: 15px;
             background: none;
             border: none;
-            color: #888;
+            color: #999;
             font-size: 1.5em;
             cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            background: rgba(0,0,0,0.1);
+            color: var(--cny-red);
         }
 
         .share-preview {
             background: white;
-            color: #333;
             border-radius: 15px;
             padding: 20px;
             margin: 20px 0;
-            text-align: center;
+            border: 2px solid var(--cny-gold);
+            position: relative;
+            overflow: hidden;
         }
 
-        .share-card-preview {
-            border: 2px solid var(--gold);
+        .share-preview::before {
+            content: '福';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8em;
+            color: rgba(230, 0, 18, 0.05);
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+
+        .share-card-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 20px;
+            border: 2px dashed var(--cny-red);
             border-radius: 10px;
-            padding: 15px;
-            background: linear-gradient(135deg, #fff8dc, #fff);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .share-icon {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+
+        .share-title {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.8em;
+            color: var(--cny-dark);
+            margin-bottom: 5px;
+        }
+
+        .share-desc {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .share-footer {
+            border-top: 1px solid rgba(230,0,18,0.2);
+            padding-top: 10px;
+            font-size: 0.8em;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
         }
 
         /* 提示消息 */
@@ -585,31 +897,21 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(-100px);
-            background: rgba(0,0,0,0.9);
-            color: var(--gold);
-            padding: 12px 24px;
-            border-radius: 25px;
-            border: 1px solid var(--gold);
+            background: linear-gradient(135deg, var(--cny-red), var(--cny-dark));
+            color: var(--cny-gold);
+            padding: 15px 30px;
+            border-radius: 30px;
+            border: 2px solid var(--cny-gold);
             z-index: 2000;
             transition: transform 0.3s;
             font-weight: 700;
+            box-shadow: 0 4px 20px rgba(230, 0, 18, 0.4);
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.1em;
         }
 
         .toast.show {
             transform: translateX(-50%) translateY(0);
-        }
-
-        /* 每日限制提示 */
-        .daily-limit {
-            text-align: center;
-            color: #888;
-            font-size: 0.9em;
-            margin-top: 10px;
-        }
-
-        .daily-limit span {
-            color: var(--gold);
-            font-weight: 700;
         }
 
         /* 首次引导 */
@@ -619,7 +921,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.85);
             z-index: 3000;
             display: none;
             align-items: center;
@@ -634,6 +936,28 @@
         .tutorial-content {
             text-align: center;
             max-width: 400px;
+            background: linear-gradient(135deg, #FFF, var(--cny-cream));
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 3px solid var(--cny-gold);
+            position: relative;
+        }
+
+        .tutorial-content::before {
+            content: '🧧';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3em;
+            background: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--cny-gold);
         }
 
         .tutorial-step {
@@ -647,14 +971,22 @@
 
         .tutorial-icon {
             font-size: 4em;
-            margin-bottom: 20px;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
         }
 
         .tutorial-text {
-            font-size: 1.2em;
+            font-size: 1.1em;
             line-height: 1.8;
             margin-bottom: 30px;
-            color: #ccc;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .tutorial-highlight {
+            color: var(--cny-red);
+            font-weight: 700;
+            font-size: 1.2em;
         }
 
         .tutorial-dots {
@@ -668,17 +1000,41 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.2);
+            transition: all 0.3s;
         }
 
         .dot.active {
-            background: var(--gold);
+            background: var(--cny-red);
+            transform: scale(1.2);
+        }
+
+        /* 连续签到 */
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(45deg, var(--cny-orange), var(--cny-red));
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            margin-left: 10px;
+            color: white;
+            font-weight: 700;
+            animation: fire 1.5s infinite;
+            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.4);
+        }
+
+        @keyframes fire {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         /* 响应式 */
         @media (max-width: 480px) {
-            .header h1 { font-size: 2em; }
-            .collection-grid { grid-template-columns: repeat(3, 1fr); }
+            .header h1 { font-size: 2.5em; }
+            .collection-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .action-buttons { grid-template-columns: 1fr; }
         }
 
         /* 动画定义 */
@@ -692,43 +1048,54 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 连续签到 */
-        .streak-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: linear-gradient(45deg, #FF6347, #FF4500);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            margin-left: 10px;
-            animation: fire 1s infinite;
+        /* 装饰性元素 */
+        .corner-decoration {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        @keyframes fire {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
+        .corner-decoration.top-left { top: 0; left: 0; background: radial-gradient(circle, var(--cny-red) 0%, transparent 70%); }
+        .corner-decoration.top-right { top: 0; right: 0; background: radial-gradient(circle, var(--cny-gold) 0%, transparent 70%); }
+        .corner-decoration.bottom-left { bottom: 0; left: 0; background: radial-gradient(circle, var(--cny-gold) 0%, transparent 70%); }
+        .corner-decoration.bottom-right { bottom: 0; right: 0; background: radial-gradient(circle, var(--cny-red) 0%, transparent 70%); }
     </style>
 </head>
 <body>
-    <div class="bg-pattern"></div>
+    <!-- 背景装饰 -->
+    <div class="bg-decoration">
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+    </div>
+
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration top-right"></div>
+    <div class="corner-decoration bottom-left"></div>
+    <div class="corner-decoration bottom-right"></div>
     
     <div class="container">
         <!-- 头部 -->
         <div class="header">
-            <h1>🐉 龙年运势签</h1>
-            <div class="subtitle">开启你的2024运势档案</div>
+            <div class="year-badge">🐎 2026 丙午马年</div>
+            <h1>马上好运</h1>
+            <div class="subtitle">马到成功 · 运势如虹</div>
         </div>
 
         <!-- 用户卡片 -->
         <div class="user-card">
             <div class="user-header">
-                <div class="avatar" id="user-avatar">🐲</div>
+                <div class="avatar" id="user-avatar">🐴</div>
                 <div class="user-info">
-                    <h3 id="username">运势师 <span id="user-level" class="level-badge level-0">Lv.1 见习</span></h3>
-                    <div style="font-size: 0.9em; color: #888; margin-top: 5px;">
-                        总运势值: <span id="total-power" style="color: var(--gold); font-weight: 700;">0</span>
+                    <h3 id="username">运势骑手 <span id="user-level" class="level-badge level-0">Lv.1 见习</span></h3>
+                    <div style="font-size: 0.9em; color: #666; margin-top: 5px;">
+                        总运势值: <span id="total-power" style="color: var(--cny-red); font-weight: 700;">0</span>
                         <span id="streak-badge" class="streak-badge hidden">🔥 连续3天</span>
                     </div>
                 </div>
@@ -753,31 +1120,34 @@
         <button class="main-btn" id="draw-btn" onclick="startDraw()">
             <span id="btn-text">🎋 点击抽签 (今日剩余 3/3)</span>
         </button>
-        <div class="daily-limit">每日可抽3次，<span>次日0点重置</span></div>
+        <div class="daily-limit">每日可抽3次，<span>次日0点重置</span> · 连续签到稀有概率UP</div>
 
         <!-- 抽签动画 -->
         <div class="draw-animation" id="draw-animation">
-            <div class="fortune-tube"></div>
-            <p style="margin-top: 20px; color: var(--gold);">运势汇聚中...</p>
+            <div class="horse-icon">🐎</div>
+            <div class="draw-text">骏马奔腾，运势汇聚中...</div>
         </div>
 
         <!-- 结果展示 -->
         <div class="result-container" id="result-container">
             <div class="fortune-card" id="fortune-card">
-                <span class="card-icon" id="card-icon">🐉</span>
-                <h2 class="card-title" id="card-title">龙腾虎跃</h2>
-                <p class="card-desc" id="card-desc">事业如龙，势不可挡</p>
+                <div class="card-badge" id="card-badge">大吉</div>
+                <span class="card-icon" id="card-icon">🐎</span>
+                <h2 class="card-title" id="card-title">马到成功</h2>
+                <p class="card-desc" id="card-desc">事业奔腾，一骑绝尘，宜主动出击</p>
                 
                 <div class="card-meta">
-                    <span class="rarity-name" id="rarity-name">普通签</span>
-                    <span class="power-value">运势值: <span id="power-value">+10</span></span>
+                    <span class="meta-tag" id="rarity-tag">🎯 普通签</span>
+                    <span class="meta-tag">✨ 运势值: <span id="power-value">+10</span></span>
                 </div>
 
                 <div class="beat-section">
-                    <div class="beat-text">你的运势击败了</div>
-                    <div class="beat-percent" id="beat-percent">65%</div>
+                    <div class="beat-header">
+                        <span class="beat-label">运势击败了</span>
+                        <span class="beat-percent" id="beat-percent">65%</span>
+                    </div>
                     <div class="beat-bar">
-                        <div class="beat-fill" id="beat-fill" style="width: 65%"></div>
+                        <div class="beat-fill" id="beat-fill" style="width: 0%"></div>
                     </div>
                     <div class="beat-text">的用户</div>
                 </div>
@@ -785,7 +1155,7 @@
 
             <div class="action-buttons">
                 <button class="action-btn" onclick="saveToCollection()">📥 存入档案</button>
-                <button class="action-btn primary" onclick="openShareModal()">📤 分享卡片</button>
+                <button class="action-btn primary" onclick="openShareModal()">📤 分享好友</button>
             </div>
         </div>
 
@@ -801,7 +1171,7 @@
         <div class="collection-section">
             <div class="section-title">
                 📚 运势图鉴
-                <span style="font-size: 0.7em; color: #888; font-weight: normal;">点击查看详情</span>
+                <span style="font-size: 0.7em; color: #999; font-weight: normal; margin-left: auto;">集齐解锁神秘大奖</span>
             </div>
             <div class="collection-grid" id="collection-grid">
                 <!-- 动态生成 -->
@@ -821,26 +1191,26 @@
     <div class="modal" id="share-modal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeShareModal()">×</button>
-            <h3 style="color: var(--gold); margin-bottom: 20px; text-align: center;">分享你的运势</h3>
+            <h3 style="color: var(--cny-dark); margin-bottom: 10px; text-align: center; font-family: 'Ma Shan Zheng', cursive; font-size: 1.8em;">🧧 分享好运</h3>
+            <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 20px;">邀请好友，双方各+1次抽签机会</p>
             
             <div class="share-preview">
-                <div class="share-card-preview">
-                    <div style="font-size: 3em; margin-bottom: 10px;" id="share-icon">🐉</div>
-                    <div style="font-weight: 700; color: var(--dark-red); font-size: 1.2em;" id="share-title">龙腾虎跃</div>
-                    <div style="color: #666; font-size: 0.9em; margin: 10px 0;" id="share-desc">事业如龙，势不可挡</div>
-                    <div style="border-top: 1px dashed #ccc; padding-top: 10px; margin-top: 10px; font-size: 0.8em; color: #999;">
-                        扫码抽取你的龙年运势签 →
+                <div class="share-card-content">
+                    <div class="share-icon" id="share-icon">🐎</div>
+                    <div class="share-title" id="share-title">马到成功</div>
+                    <div class="share-desc" id="share-desc">事业奔腾，一骑绝尘</div>
+                    <div style="margin: 15px 0; padding: 10px; background: rgba(230,0,18,0.05); border-radius: 10px; color: var(--cny-red); font-weight: 700; font-size: 0.9em;">
+                        击败了 <span id="share-percent">65%</span> 的用户
+                    </div>
+                    <div class="share-footer">
+                        <span>扫码测测你的马年运势 →</span>
                     </div>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;">
                 <button class="action-btn" onclick="copyLink()">🔗 复制链接</button>
-                <button class="action-btn primary" onclick="saveImage()">💾 保存图片</button>
-            </div>
-            
-            <div style="margin-top: 15px; text-align: center; font-size: 0.8em; color: #666;">
-                每邀请1位好友，获得1次额外抽签机会
+                <button class="action-btn primary" onclick="saveImage()">💾 保存卡片</button>
             </div>
         </div>
     </div>
@@ -852,27 +1222,27 @@
     <div class="tutorial" id="tutorial">
         <div class="tutorial-content">
             <div class="tutorial-step active" data-step="1">
-                <div class="tutorial-icon">🎋</div>
+                <div class="tutorial-icon">🐎</div>
                 <div class="tutorial-text">
-                    欢迎来到龙年运势签！<br>
+                    欢迎来到<span class="tutorial-highlight">2026马年运势签</span>！<br>
                     每日可抽3支运势签<br>
-                    收集稀有签文，解锁专属成就
+                    收集稀有签文，解锁成就徽章
                 </div>
             </div>
             <div class="tutorial-step" data-step="2">
                 <div class="tutorial-icon">📚</div>
                 <div class="tutorial-text">
-                    收集完整图鉴可获得<br>
-                    <span style="color: var(--gold);">神秘大奖</span><br>
-                    分享好友助力，增加抽签次数
+                    收集完整<span class="tutorial-highlight">12生肖马年签</span><br>
+                    解锁<span class="tutorial-highlight">神秘大奖</span><br>
+                    连续签到提升稀有概率！
                 </div>
             </div>
             <div class="tutorial-step" data-step="3">
-                <div class="tutorial-icon">🏆</div>
+                <div class="tutorial-icon">🧧</div>
                 <div class="tutorial-text">
-                    连续签到有惊喜<br>
-                    稀有签文概率UP！<br>
-                    开始你的运势之旅吧！
+                    分享给好友助力<br>
+                    双方获得<span class="tutorial-highlight">额外抽签机会</span><br>
+                    马上开启你的运势之旅！
                 </div>
             </div>
             
@@ -882,7 +1252,7 @@
                 <div class="dot"></div>
             </div>
             
-            <button class="main-btn" onclick="nextTutorial()" id="tutorial-btn" style="margin-top: 20px;">
+            <button class="main-btn" onclick="nextTutorial()" id="tutorial-btn" style="margin-top: 10px;">
                 下一步
             </button>
         </div>
@@ -890,35 +1260,44 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
-        // 数据配置 - 扩展至12个签文，增加收集深度
+        // 2026马年运势签数据 - 全新设计
         const fortunes = [
-            { id: 1, title: "龙腾虎跃", desc: "事业如龙，势不可挡，宜主动出击", rarity: 0, icon: "🐉", power: 10 },
-            { id: 2, title: "平稳安康", desc: "平平淡淡才是真，注意身体", rarity: 0, icon: "🍵", power: 10 },
-            { id: 3, title: "小有所成", desc: "努力终有回报，继续加油", rarity: 0, icon: "🌱", power: 10 },
-            { id: 4, title: "财源滚滚", desc: "财运亨通，金银满屋，宜投资", rarity: 1, icon: "💰", power: 25 },
-            { id: 5, title: "桃花朵朵", desc: "爱情运势极佳，单身者留意", rarity: 1, icon: "🌸", power: 25 },
-            { id: 6, title: "贵人相助", desc: "得遇贵人，事半功倍", rarity: 1, icon: "🤝", power: 25 },
-            { id: 7, title: "步步高升", desc: "升职加薪在望，把握机遇", rarity: 2, icon: "📈", power: 50 },
-            { id: 8, title: "万事如意", desc: "心想事成，好运连连", rarity: 2, icon: "✨", power: 50 },
-            { id: 9, title: "紫气东来", desc: "祥瑞降临，诸事顺遂", rarity: 2, icon: "☁️", power: 50 },
-            { id: 10, title: "天降横财", desc: "意外之财，喜从天降", rarity: 3, icon: "💎", power: 100 },
-            { id: 11, title: "龙凤呈祥", desc: "百年难遇之大吉，时来运转", rarity: 3, icon: "🐲", power: 100 },
-            { id: 12, title: "真龙天子", desc: "至尊隐藏款！全年无敌好运", rarity: 4, icon: "👑", power: 999 }
+            { id: 1, title: "马到成功", desc: "事业奔腾，一骑绝尘，宜主动出击", rarity: 0, icon: "🐎", power: 10, blessing: "平" },
+            { id: 2, title: "一马当先", desc: "领先群雄，独占鳌头，把握先机", rarity: 0, icon: "🏇", power: 10, blessing: "平" },
+            { id: 3, title: "稳步前行", desc: "脚踏实地，步步为营，静待花开", rarity: 0, icon: "🐴", power: 10, blessing: "平" },
+            { id: 4, title: "马上有钱", desc: "财运亨通，八方来财，投资有利", rarity: 1, icon: "💰", power: 25, blessing: "吉" },
+            { id: 5, title: "马上有喜", desc: "桃花盛开，姻缘天定，喜事临门", rarity: 1, icon: "🌸", power: 25, blessing: "吉" },
+            { id: 6, title: "马上有贵", desc: "贵人相助，事半功倍，得道多助", rarity: 1, icon: "🤝", power: 25, blessing: "吉" },
+            { id: 7, title: "飞黄腾达", desc: "平步青云，扶摇直上，前程似锦", rarity: 2, icon: "🚀", power: 50, blessing: "大吉" },
+            { id: 8, title: "万马奔腾", desc: "气势如虹，势不可挡，创辉煌业", rarity: 2, icon: "🌟", power: 50, blessing: "大吉" },
+            { id: 9, title: "龙马精神", desc: "精力充沛，百病不侵，身强体健", rarity: 2, icon: "💪", power: 50, blessing: "大吉" },
+            { id: 10, title: "金马玉堂", desc: "富贵双全，声名显赫，荣华富贵", rarity: 3, icon: "👑", power: 100, blessing: "上上" },
+            { id: 11, title: "天马行空", desc: "灵感迸发，无拘无束，成就非凡", rarity: 3, icon: "✨", power: 100, blessing: "上上" },
+            { id: 12, title: "汗血宝马", desc: "至尊神兽！全年无敌好运，万事顺遂", rarity: 4, icon: "🔥", power: 999, blessing: "天赐" }
         ];
 
-        // 权重配置
-        const rarityWeights = [50, 30, 15, 4, 1];
+        // 权重配置（基础）
+        const rarityWeights = [45, 30, 15, 8, 2];
         const rarityNames = ['普通', '稀有', '史诗', '传说', '神话'];
         const rarityClasses = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4'];
+        const blessingColors = {
+            '平': '#999',
+            '吉': '#FF6B35',
+            '大吉': '#9C27B0',
+            '上上': '#FFD700',
+            '天赐': '#E60012'
+        };
 
         // 成就配置
         const achievements = [
-            { id: 'first_draw', name: '初识运势', icon: '🎯', desc: '首次抽签', condition: (u) => u.totalDraws >= 1 },
-            { id: 'collector_3', name: '初 collector', icon: '📚', desc: '收集3种签', condition: (u) => u.unlockedSet.size >= 3 },
+            { id: 'first_draw', name: '初试啼声', icon: '🎯', desc: '首次抽签', condition: (u) => u.totalDraws >= 1 },
+            { id: 'collector_3', name: '初露锋芒', icon: '📚', desc: '收集3种签', condition: (u) => u.unlockedSet.size >= 3 },
+            { id: 'collector_6', name: '半部春秋', icon: '📖', desc: '收集6种签', condition: (u) => u.unlockedSet.size >= 6 },
             { id: 'collector_all', name: '图鉴大师', icon: '👑', desc: '收集全部签', condition: (u) => u.unlockedSet.size >= 12 },
-            { id: 'rare_hunter', name: '稀有猎人', icon: '💎', desc: '获得传说签', condition: (u) => u.maxRarity >= 3 },
+            { id: 'rare_hunter', name: '传说猎人', icon: '💎', desc: '获得传说签', condition: (u) => u.maxRarity >= 3 },
             { id: 'legendary', name: '天命之子', icon: '🔥', desc: '获得神话签', condition: (u) => u.maxRarity >= 4 },
-            { id: 'streak_3', name: '持之以恒', icon: '⚡', desc: '连续3天抽签', condition: (u) => u.streak >= 3 }
+            { id: 'streak_3', name: '持之以恒', icon: '⚡', desc: '连续3天抽签', condition: (u) => u.streak >= 3 },
+            { id: 'streak_7', name: '马到功成', icon: '🏆', desc: '连续7天抽签', condition: (u) => u.streak >= 7 }
         ];
 
         // 用户数据
@@ -926,13 +1305,14 @@
             totalDraws: 0,
             todayDraws: 0,
             lastDrawDate: null,
-            unlocked: {}, // {id: count}
+            unlocked: {},
             unlockedSet: new Set(),
             maxRarity: 0,
             totalPower: 0,
             streak: 0,
             lastLoginDate: null,
-            achievements: new Set()
+            achievements: new Set(),
+            history: []
         };
 
         let currentFortune = null;
@@ -945,20 +1325,20 @@
             updateUI();
             initCollectionGrid();
             
-            // 首次访问显示引导
             if (!localStorage.getItem('tutorialShown')) {
                 document.getElementById('tutorial').classList.add('active');
             }
         };
 
         function loadUserData() {
-            const saved = localStorage.getItem('fortuneUserData');
+            const saved = localStorage.getItem('fortuneUserData2026');
             if (saved) {
                 const parsed = JSON.parse(saved);
                 userData = {
                     ...parsed,
                     unlockedSet: new Set(parsed.unlockedSet || []),
-                    achievements: new Set(parsed.achievements || [])
+                    achievements: new Set(parsed.achievements || []),
+                    history: parsed.history || []
                 };
             }
         }
@@ -969,28 +1349,29 @@
                 unlockedSet: Array.from(userData.unlockedSet),
                 achievements: Array.from(userData.achievements)
             };
-            localStorage.setItem('fortuneUserData', JSON.stringify(toSave));
+            localStorage.setItem('fortuneUserData2026', JSON.stringify(toSave));
         }
 
         function checkDailyReset() {
             const today = new Date().toDateString();
             
-            // 检查连续签到
             if (userData.lastLoginDate) {
                 const lastDate = new Date(userData.lastLoginDate);
                 const diffDays = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24));
                 
                 if (diffDays === 1) {
                     userData.streak++;
-                    showToast(`连续签到 ${userData.streak} 天！稀有概率提升！`);
+                    if (userData.streak >= 3) {
+                        showToast(`🔥 连续签到 ${userData.streak} 天！稀有概率大幅提升！`);
+                    }
                 } else if (diffDays > 1) {
+                    if (userData.streak > 0) showToast('签到中断，重新开启连续签到');
                     userData.streak = 0;
                 }
             }
             
             userData.lastLoginDate = new Date().toISOString();
             
-            // 重置每日次数
             if (userData.lastDrawDate !== today) {
                 userData.todayDraws = 0;
                 userData.lastDrawDate = today;
@@ -1000,11 +1381,11 @@
         }
 
         function getRandomFortune() {
-            // 连续签到增加稀有概率
             let weights = [...rarityWeights];
-            if (userData.streak >= 3) {
-                weights = [40, 35, 20, 4, 1]; // 提升稀有概率
-            }
+            
+            // 连续签到大幅提升稀有概率
+            if (userData.streak >= 3) weights = [30, 35, 25, 8, 2];
+            if (userData.streak >= 7) weights = [20, 35, 30, 12, 3];
             
             let total = weights.reduce((a, b) => a + b, 0);
             let rand = Math.random() * total;
@@ -1028,16 +1409,14 @@
                 return;
             }
 
-            // 隐藏按钮，显示动画
             document.getElementById('draw-btn').style.display = 'none';
             document.getElementById('result-container').classList.remove('show');
             document.getElementById('draw-animation').classList.add('active');
 
-            // 模拟抽签过程
             setTimeout(() => {
                 currentFortune = getRandomFortune();
                 showResult(currentFortune);
-            }, 1500);
+            }, 2000);
         }
 
         function showResult(fortune) {
@@ -1060,14 +1439,23 @@
                 userData.maxRarity = fortune.rarity;
             }
 
+            // 添加到历史
+            userData.history.unshift({
+                ...fortune,
+                date: new Date().toLocaleDateString()
+            });
+            if (userData.history.length > 10) userData.history.pop();
+
             // 更新UI
             const card = document.getElementById('fortune-card');
             card.className = `fortune-card rarity-${fortune.rarity}`;
             
+            document.getElementById('card-badge').textContent = fortune.blessing;
+            document.getElementById('card-badge').style.background = blessingColors[fortune.blessing];
             document.getElementById('card-icon').textContent = fortune.icon;
             document.getElementById('card-title').textContent = fortune.title;
             document.getElementById('card-desc').textContent = fortune.desc;
-            document.getElementById('rarity-name').textContent = rarityNames[fortune.rarity] + '签';
+            document.getElementById('rarity-tag').textContent = `🎯 ${rarityNames[fortune.rarity]}签`;
             document.getElementById('power-value').textContent = '+' + fortune.power;
 
             // 计算击败百分比
@@ -1075,14 +1463,17 @@
             for (let i = 0; i < fortune.rarity; i++) beaten += rarityWeights[i];
             const percent = Math.floor((beaten / rarityWeights.reduce((a,b)=>a+b,0)) * 100);
             document.getElementById('beat-percent').textContent = percent + '%';
-            document.getElementById('beat-fill').style.width = percent + '%';
+            
+            setTimeout(() => {
+                document.getElementById('beat-fill').style.width = percent + '%';
+            }, 300);
 
-            // 更新按钮文字
+            // 更新按钮
             const remaining = 3 - userData.todayDraws;
             document.getElementById('btn-text').textContent = remaining > 0 ? 
                 `🎋 再次抽签 (今日剩余 ${remaining}/3)` : 
                 `🎋 今日次数已用完`;
-
+            
             if (remaining === 0) {
                 document.getElementById('draw-btn').disabled = true;
             }
@@ -1090,10 +1481,11 @@
             // 检查成就
             checkAchievements();
             
-            // 特殊效果
+            // 特效
             if (fortune.rarity >= 3) {
                 showToast(`🎉 恭喜获得${rarityNames[fortune.rarity]}签！`);
                 confettiEffect();
+                if (fortune.rarity === 4) legendaryEffect();
             }
 
             saveUserData();
@@ -1109,7 +1501,7 @@
                     newAchievement = true;
                     setTimeout(() => {
                         showToast(`🏆 解锁成就：${ach.name}！`);
-                    }, 1000);
+                    }, 1500);
                 }
             });
             
@@ -1128,33 +1520,30 @@
             }).length;
             document.getElementById('total-power').textContent = userData.totalPower;
 
-            // 更新等级
-            let level = 0;
-            let levelName = '见习';
-            if (userData.totalPower > 100) { level = 1; levelName = '入门'; }
-            if (userData.totalPower > 300) { level = 2; levelName = '精通'; }
-            if (userData.totalPower > 600) { level = 3; levelName = '大师'; }
-            if (userData.totalPower > 1000) { level = 4; levelName = '宗师'; }
+            // 等级
+            let level = 0, levelName = '见习';
+            if (userData.totalPower > 100) { level = 1; levelName = '骑手'; }
+            if (userData.totalPower > 300) { level = 2; levelName = '骑士'; }
+            if (userData.totalPower > 600) { level = 3; levelName = '赛马师'; }
+            if (userData.totalPower > 1000) { level = 4; levelName = '驯马大师'; }
             
             const levelBadge = document.getElementById('user-level');
             levelBadge.className = `level-badge ${rarityClasses[level]}`;
             levelBadge.textContent = `Lv.${level + 1} ${levelName}`;
 
-            // 连续签到
             if (userData.streak >= 3) {
                 document.getElementById('streak-badge').classList.remove('hidden');
                 document.getElementById('streak-badge').textContent = `🔥 连续${userData.streak}天`;
             }
 
-            // 显示成就区域
             if (userData.achievements.size > 0) {
                 document.getElementById('achievements-section').style.display = 'block';
                 renderAchievements();
             }
 
-            // 显示历史
             if (userData.totalDraws > 0) {
                 document.getElementById('history-section').style.display = 'block';
+                renderHistory();
             }
         }
 
@@ -1187,13 +1576,13 @@
                 if (count > 0) {
                     item.classList.remove('locked');
                     item.classList.add('unlocked');
+                    if (f.rarity === 4) item.classList.add('legendary');
                     
-                    // 显示数量标记
                     if (count > 1) {
-                        const badge = document.createElement('span');
-                        badge.className = 'collection-count';
-                        badge.textContent = count;
                         if (!item.querySelector('.collection-count')) {
+                            const badge = document.createElement('span');
+                            badge.className = 'collection-count';
+                            badge.textContent = count;
                             item.appendChild(badge);
                         }
                     }
@@ -1208,25 +1597,44 @@
             achievements.forEach(ach => {
                 const badge = document.createElement('div');
                 badge.className = `achievement-badge ${userData.achievements.has(ach.id) ? 'unlocked' : ''}`;
-                badge.textContent = ach.icon;
-                badge.setAttribute('data-name', ach.name);
+                badge.innerHTML = `
+                    ${ach.icon}
+                    <span class="achievement-name">${ach.name}</span>
+                `;
                 badge.title = ach.desc;
                 container.appendChild(badge);
             });
         }
 
+        function renderHistory() {
+            const container = document.getElementById('history-list');
+            container.innerHTML = '';
+            
+            userData.history.slice(0, 5).forEach(h => {
+                const item = document.createElement('div');
+                item.style.cssText = 'display: flex; align-items: center; padding: 10px; border-bottom: 1px solid rgba(0,0,0,0.05); background: rgba(255,255,255,0.5); border-radius: 10px; margin-bottom: 5px;';
+                item.innerHTML = `
+                    <span style="font-size: 1.5em; margin-right: 10px;">${h.icon}</span>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 700; color: var(--cny-dark);">${h.title}</div>
+                        <div style="font-size: 0.8em; color: #999;">${h.date}</div>
+                    </div>
+                    <span style="background: ${blessingColors[h.blessing]}; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7em;">${h.blessing}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
         function showFortuneDetail(fortune) {
             if (!userData.unlocked[fortune.id]) {
-                showToast('还未解锁此签文，继续抽签吧！');
+                showToast('🔒 还未解锁此签文，继续抽签吧！');
                 return;
             }
-            // 可以扩展为弹窗显示详细信息
             showToast(`${fortune.title}：${fortune.desc}`);
         }
 
         function saveToCollection() {
-            showToast('已存入个人运势档案！');
-            // 触发保存动画或效果
+            showToast('✅ 已存入个人运势档案！');
         }
 
         function openShareModal() {
@@ -1235,6 +1643,12 @@
             document.getElementById('share-icon').textContent = currentFortune.icon;
             document.getElementById('share-title').textContent = currentFortune.title;
             document.getElementById('share-desc').textContent = currentFortune.desc;
+            
+            let beaten = 0;
+            for (let i = 0; i < currentFortune.rarity; i++) beaten += rarityWeights[i];
+            const percent = Math.floor((beaten / rarityWeights.reduce((a,b)=>a+b,0)) * 100);
+            document.getElementById('share-percent').textContent = percent + '%';
+            
             document.getElementById('share-modal').classList.add('active');
         }
 
@@ -1245,8 +1659,7 @@
         function copyLink() {
             const url = window.location.href + '?ref=' + generateUserId();
             navigator.clipboard.writeText(url).then(() => {
-                showToast('链接已复制！好友点击你获得+1次机会');
-                // 增加分享次数逻辑
+                showToast('🧧 链接已复制！好友点击双方+1次机会');
                 userData.todayDraws = Math.max(0, userData.todayDraws - 1);
                 saveUserData();
                 updateUI();
@@ -1255,20 +1668,20 @@
 
         function saveImage() {
             const card = document.getElementById('fortune-card');
-            html2canvas(card).then(canvas => {
+            html2canvas(card, { backgroundColor: null }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `龙年运势签_${currentFortune.title}.png`;
+                link.download = `马年运势签_${currentFortune.title}.png`;
                 link.href = canvas.toDataURL();
                 link.click();
-                showToast('图片已保存！');
+                showToast('🎨 卡片已保存！');
             });
         }
 
         function generateUserId() {
-            let id = localStorage.getItem('fortuneUserId');
+            let id = localStorage.getItem('fortuneUserId2026');
             if (!id) {
-                id = 'user_' + Math.random().toString(36).substr(2, 9);
-                localStorage.setItem('fortuneUserId', id);
+                id = 'rider_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('fortuneUserId2026', id);
             }
             return id;
         }
@@ -1291,7 +1704,7 @@
                 });
                 
                 if (tutorialStep === 3) {
-                    document.getElementById('tutorial-btn').textContent = '开始抽签';
+                    document.getElementById('tutorial-btn').textContent = '马上开始';
                 }
             } else {
                 document.getElementById('tutorial').classList.remove('active');
@@ -1300,39 +1713,58 @@
         }
 
         function confettiEffect() {
-            // 简单的彩纸效果
-            for (let i = 0; i < 50; i++) {
+            const colors = ['#E60012', '#FFD700', '#FF6B35', '#FF8E8E', '#9C27B0'];
+            for (let i = 0; i < 60; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
                     confetti.style.position = 'fixed';
                     confetti.style.left = Math.random() * 100 + '%';
                     confetti.style.top = '-10px';
-                    confetti.style.width = '10px';
-                    confetti.style.height = '10px';
-                    confetti.style.background = ['#FFD700', '#FF6347', '#1E90FF', '#800080'][Math.floor(Math.random() * 4)];
-                    confetti.style.borderRadius = '50%';
+                    confetti.style.width = (8 + Math.random() * 8) + 'px';
+                    confetti.style.height = (8 + Math.random() * 8) + 'px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
                     confetti.style.zIndex = '9999';
                     confetti.style.pointerEvents = 'none';
                     document.body.appendChild(confetti);
                     
                     const duration = 2000 + Math.random() * 2000;
+                    const rotation = Math.random() * 360;
+                    
                     confetti.animate([
-                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-                        { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                        { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+                        { transform: `translateY(${window.innerHeight}px) rotate(${rotation}deg)`, opacity: 0 }
                     ], {
                         duration: duration,
                         easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                     }).onfinish = () => confetti.remove();
-                }, i * 50);
+                }, i * 30);
             }
         }
 
-        // 检查URL参数（好友邀请）
+        function legendaryEffect() {
+            // 神话签特殊效果
+            document.body.style.animation = 'flash 0.5s';
+            setTimeout(() => {
+                document.body.style.animation = '';
+            }, 500);
+            
+            // 添加闪光动画样式
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes flash {
+                    0%, 100% { filter: brightness(1); }
+                    50% { filter: brightness(1.5); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // 检查URL参数
         const urlParams = new URLSearchParams(window.location.search);
         const ref = urlParams.get('ref');
         if (ref) {
             showToast('🎁 好友邀请奖励：+1次抽签机会！');
-            // 这里可以实现给双方增加次数的逻辑
         }
     </script>
 </body>
